@@ -390,7 +390,6 @@ footer {
   font-size: 12px;
   letter-spacing: 0.08em;
   color: var(--fg);
-  border-bottom: 1px solid #333;
   padding-bottom: 4px;
   transition: color 0.3s, border-color 0.3s;
   display: inline-block;
