@@ -486,7 +486,7 @@ footer {
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--fg-dim);
+  color: var(--fg);
   transition: color 0.3s;
 }
 
