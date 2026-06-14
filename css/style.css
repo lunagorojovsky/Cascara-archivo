@@ -79,7 +79,7 @@ header {
 
 .header-right {
   display: flex;
-  gap: 28px;
+  gap: 16px;
 }
 
 .nav-link {
