@@ -331,3 +331,8 @@ footer {
     transition: none;
   }
 }
+
+.site-logo {
+  height: 28px;
+  width: auto;
+}
