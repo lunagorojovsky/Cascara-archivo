@@ -429,7 +429,7 @@ footer {
 }
 
 .landing-logo {
-  height: 30px;
+  height: 24px;
   width: auto;
 }
 
@@ -438,6 +438,8 @@ footer {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--fg-dim);
+  text-align: center;
+  width: 100%;
 }
 
 .landing-btn {
