@@ -12,18 +12,6 @@ cards.forEach((card, i) => {
   }, 150 + i * 120);
 });
 
-// Reveal del hero en páginas de proyecto
-const hero = document.querySelector('.project-hero');
-if (hero) {
-  hero.style.opacity = '0';
-  hero.style.transform = 'translateY(12px)';
-  hero.style.transition = 'opacity 0.9s ease, transform 0.9s ease';
-  setTimeout(() => {
-    hero.style.opacity = '1';
-    hero.style.transform = 'translateY(0)';
-  }, 100);
-}
-
 // Scroll reveal para imágenes
 const revealElements = document.querySelectorAll('.reveal');
 if (revealElements.length > 0) {
