@@ -434,6 +434,13 @@ footer {
   margin-bottom: 32px;
 }
 
+.landing-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
 .landing-collar img {
   width: 100%;
   height: auto;
