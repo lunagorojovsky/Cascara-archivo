@@ -413,3 +413,45 @@ footer {
   width: 100%;
   height: 100%;
 }
+
+.landing-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.landing-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.landing-logo {
+  height: 40px;
+  width: auto;
+}
+
+.landing-sub {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.landing-btn {
+  margin-top: 20px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  border: 1px solid #333;
+  padding: 10px 28px;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.landing-btn:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+}
