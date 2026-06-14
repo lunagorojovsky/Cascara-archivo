@@ -1,4 +1,4 @@
-# Cáscara Archivi
+# Cáscara Archivo
 
 Archivo digital de Cáscara. Construido con HTML/CSS/JS puro, hosteado en GitHub Pages.
 
