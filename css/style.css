@@ -345,3 +345,58 @@ footer {
   text-transform: uppercase;
   color: var(--fg-dim);
 }
+
+.sobre-main {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 120px var(--page-padding) 60px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.sobre-imagen {
+  width: 160px;
+}
+
+.sobre-imagen img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.sobre-texto p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--fg);
+  text-align: justify;
+}
+
+.sobre-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.sobre-email {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+  border-bottom: 1px solid #333;
+  padding-bottom: 4px;
+  transition: color 0.3s, border-color 0.3s;
+  display: inline-block;
+}
+
+.sobre-email:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
