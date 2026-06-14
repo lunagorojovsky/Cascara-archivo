@@ -419,13 +419,30 @@ footer {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  background: var(--bg);
 }
 
 .landing-main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 8px;
+}
+
+.landing-collar {
+  width: 120px;
+  margin-bottom: 32px;
+}
+
+.landing-collar img {
+  width: 100%;
+  height: auto;
+  animation: girar 12s linear infinite;
+}
+
+@keyframes girar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .landing-logo {
@@ -443,7 +460,7 @@ footer {
 }
 
 .landing-btn {
-  margin-top: 20px;
+  margin-top: 40px;
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -456,20 +473,4 @@ footer {
 .landing-btn:hover {
   color: var(--fg);
   border-color: var(--fg);
-}
-
-.landing-collar {
-  width: 180px;
-  margin-bottom: 20px;
-}
-
-.landing-collar img {
-  width: 100%;
-  height: auto;
-  animation: girar 8s linear infinite;
-}
-
-@keyframes girar {
-  from { transform: rotateY(0deg); }
-  to { transform: rotateY(360deg); }
 }
