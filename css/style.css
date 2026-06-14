@@ -481,3 +481,15 @@ footer {
   color: var(--fg);
   border-color: var(--fg);
 }
+
+.footer-tienda {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  transition: color 0.3s;
+}
+
+.footer-tienda:hover {
+  color: var(--fg);
+}
