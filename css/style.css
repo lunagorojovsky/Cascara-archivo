@@ -196,18 +196,15 @@ body.project-page .project-hero {
 .img-block img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
 /* Tamaños */
 .img-large {
-  aspect-ratio: 16/10;
 }
 
 .img-narrow {
   width: 55%;
   margin: 0 auto;
-  aspect-ratio: 2/3;
 }
 
 .img-row {
@@ -217,7 +214,6 @@ body.project-page .project-hero {
 }
 
 .img-row .img-block {
-  aspect-ratio: 3/4;
 }
 
 .img-row-3 {
