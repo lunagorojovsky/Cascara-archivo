@@ -78,24 +78,9 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const imgs = [
-      'https://res.cloudinary.com/dsppfoxzs/image/upload/v1781640089/pngtree-fresh-orange-with-leaf-on-non-background-png-image_20092487_cuvsaq.png',
-      'https://res.cloudinary.com/dsppfoxzs/image/upload/v1781640089/orange-1218158_1280_vlnwcy.webp'
-    ];
-
-    const loadedImgs = [];
-    let loaded = 0;
-
-    imgs.forEach((src, i) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => {
-        loadedImgs[i] = img;
-        loaded++;
-        if (loaded === imgs.length) startAnimation();
-      };
-      img.src = src;
-    });
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = 'https://res.cloudinary.com/dsppfoxzs/image/upload/v1781640089/orange-1218158_1280_vlnwcy.webp';
 
     const naranjas = Array.from({length: 14}, () => ({
       x: Math.random() * window.innerWidth,
@@ -103,18 +88,14 @@
       size: 30 + Math.random() * 40,
       speed: 0.8 + Math.random() * 1.2,
       rot: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.015,
-      imgIndex: Math.floor(Math.random() * 2)
+      rotSpeed: (Math.random() - 0.5) * 0.015
     }));
 
-    function startAnimation() {
+    img.onload = () => {
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         naranjas.forEach(n => {
-          const img = loadedImgs[n.imgIndex];
-          if (!img) return;
-
           ctx.save();
           ctx.globalAlpha = 0.3;
           ctx.translate(n.x, n.y);
@@ -133,7 +114,7 @@
         requestAnimationFrame(animate);
       }
       animate();
-    }
+    };
 
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
