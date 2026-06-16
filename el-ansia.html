@@ -60,10 +60,6 @@
       <div class="ficha-item">
         <span class="ficha-label">Año</span>
         <span class="ficha-value">2024</span>
-        <span class="ficha-label">Con</span>
-        <span class="ficha-value">Mark Vigil</span>
-        <span class="ficha-label">Equipo Técnico</span>
-        <span class="ficha-value">dirección Briana Turi sonido Luna Gorojovsky</span>
       </div>
     </div>
   </section>
@@ -76,50 +72,73 @@
 
   <script src="js/main.js"></script>
   <script>
-  const canvas = document.getElementById('naranja-canvas');
-  const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById('naranja-canvas');
+    const ctx = canvas.getContext('2d');
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const naranjas = Array.from({length: 14}, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * -canvas.height,
-    size: 22 + Math.random() * 28,
-    speed: 0.8 + Math.random() * 1.2,
-    rot: Math.random() * Math.PI * 2,
-    rotSpeed: (Math.random() - 0.5) * 0.02
-  }));
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.globalAlpha = 0.35;
-
-    naranjas.forEach(n => {
-      ctx.save();
-      ctx.translate(n.x, n.y);
-      ctx.rotate(n.rot);
-      ctx.font = ${n.size * 2}px serif;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('🍊', 0, 0);
-      ctx.restore();
-
-      n.y += n.speed;
-      n.rot += n.rotSpeed;
-      if (n.y > canvas.height + n.size * 2) {
-        n.y = -n.size * 2;
-        n.x = Math.random() * canvas.width;
-      }
-    });
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-
-  window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-  });
-</script>
+
+    const imgs = [
+      'https://res.cloudinary.com/dsppfoxzs/image/upload/v1781640089/pngtree-fresh-orange-with-leaf-on-non-background-png-image_20092487_cuvsaq.png',
+      'https://res.cloudinary.com/dsppfoxzs/image/upload/v1781640089/orange-1218158_1280_vlnwcy.webp'
+    ];
+
+    const loadedImgs = [];
+    let loaded = 0;
+
+    imgs.forEach((src, i) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        loadedImgs[i] = img;
+        loaded++;
+        if (loaded === imgs.length) startAnimation();
+      };
+      img.src = src;
+    });
+
+    const naranjas = Array.from({length: 14}, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * -window.innerHeight,
+      size: 30 + Math.random() * 40,
+      speed: 0.8 + Math.random() * 1.2,
+      rot: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.015,
+      imgIndex: Math.floor(Math.random() * 2)
+    }));
+
+    function startAnimation() {
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        naranjas.forEach(n => {
+          const img = loadedImgs[n.imgIndex];
+          if (!img) return;
+
+          ctx.save();
+          ctx.globalAlpha = 0.3;
+          ctx.translate(n.x, n.y);
+          ctx.rotate(n.rot);
+          ctx.drawImage(img, -n.size, -n.size, n.size * 2, n.size * 2);
+          ctx.restore();
+
+          n.y += n.speed;
+          n.rot += n.rotSpeed;
+          if (n.y > canvas.height + n.size * 2) {
+            n.y = -n.size * 2;
+            n.x = Math.random() * canvas.width;
+          }
+        });
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
