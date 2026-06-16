@@ -8,8 +8,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    #naranja-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    body.project-page > * {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
 </head>
 <body class="project-page">
+
+  <canvas id="naranja-canvas"></canvas>
 
   <header>
     <div class="header-left">
@@ -45,7 +62,7 @@
         <span class="ficha-value">2024</span>
         <span class="ficha-label">Con</span>
         <span class="ficha-value">Mark Vigil</span>
-        <span class="ficha-label">Equipo técnico</span>
+        <span class="ficha-label">Equipo Técnico</span>
         <span class="ficha-value">dirección Briana Turi sonido Luna Gorojovsky</span>
       </div>
     </div>
@@ -58,5 +75,72 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    const canvas = document.getElementById('naranja-canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const naranjas = Array.from({length: 18}, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * -canvas.height,
+      size: 18 + Math.random() * 22,
+      speed: 1.2 + Math.random() * 1.8,
+      rot: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.03
+    }));
+
+    function drawNaranja(x, y, size, rot) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rot);
+
+      // Cuerpo
+      ctx.beginPath();
+      ctx.arc(0, 0, size, 0, Math.PI * 2);
+      ctx.fillStyle = '#c85a00';
+      ctx.fill();
+
+      // Textura
+      ctx.beginPath();
+      ctx.arc(0, 0, size * 0.85, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(180, 70, 0, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Hoja
+      ctx.beginPath();
+      ctx.moveTo(0, -size);
+      ctx.bezierCurveTo(size * 0.4, -size * 1.5, size * 0.8, -size * 0.8, 0, -size * 0.6);
+      ctx.fillStyle = '#2d5a1b';
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      naranjas.forEach(n => {
+        drawNaranja(n.x, n.y, n.size, n.rot);
+        n.y += n.speed;
+        n.rot += n.rotSpeed;
+        if (n.y > canvas.height + n.size * 2) {
+          n.y = -n.size * 2;
+          n.x = Math.random() * canvas.width;
+        }
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
 </body>
 </html>
