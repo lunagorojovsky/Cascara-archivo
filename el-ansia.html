@@ -60,6 +60,10 @@
       <div class="ficha-item">
         <span class="ficha-label">Año</span>
         <span class="ficha-value">2024</span>
+        <span class="ficha-label">Con</span>
+        <span class="ficha-value">Mark Vigil</span>
+        <span class="ficha-label">Equipo Técnico</span>
+        <span class="ficha-value">dirección Briana Turi sonido Luna Gorojovsky</span>
       </div>
     </div>
   </section>
@@ -74,155 +78,47 @@
   <script>
     const canvas = document.getElementById('naranja-canvas');
     const ctx = canvas.getContext('2d');
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const cx = canvas.width / 2;
-    const cy = canvas.height;
-
-    // Ramas: [x1, y1, x2, y2]
-    const branches = [
-      // Tronco
-      [cx, cy, cx, cy - 180],
-      // Ramas principales
-      [cx, cy - 180, cx - 100, cy - 300],
-      [cx, cy - 180, cx + 90, cy - 290],
-      [cx, cy - 150, cx - 60, cy - 250],
-      // Sub-ramas izquierda
-      [cx - 100, cy - 300, cx - 160, cy - 390],
-      [cx - 100, cy - 300, cx - 60, cy - 380],
-      [cx - 60, cy - 250, cx - 110, cy - 330],
-      // Sub-ramas derecha
-      [cx + 90, cy - 290, cx + 150, cy - 380],
-      [cx + 90, cy - 290, cx + 50, cy - 370],
-      [cx + 50, cy - 370, cx + 90, cy - 440],
-      // Ramas altas
-      [cx - 160, cy - 390, cx - 190, cy - 460],
-      [cx - 160, cy - 390, cx - 120, cy - 460],
-      [cx + 150, cy - 380, cx + 180, cy - 450],
-      [cx - 60, cy - 380, cx - 80, cy - 450],
-    ];
-
-    // Posiciones de naranjas al final de ramas
-    const orangePositions = [
-      [cx - 190, cy - 470],
-      [cx - 120, cy - 465],
-      [cx - 80, cy - 455],
-      [cx + 180, cy - 458],
-      [cx + 90, cy - 448],
-      [cx - 165, cy - 400],
-      [cx + 155, cy - 390],
-    ];
-
-    // Estado
-    let drawProgress = 0;
-    const totalSegments = branches.length;
-    const drawDuration = 4000; // ms para dibujar el árbol
-    let startTime = null;
-    let treeComplete = false;
-
-    // Naranjas cayendo
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.src = 'https://res.cloudinary.com/dsppfoxzs/image/upload/v1781640089/orange-1218158_1280_vlnwcy.webp';
 
-    const fallingOranges = [];
-    let orangesStarted = false;
+    const naranjas = Array.from({length: 7}, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * -window.innerHeight,
+      size: 18 + Math.random() * 22,
+      speed: 0.8 + Math.random() * 1.2,
+      rot: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.015
+    }));
 
-    function spawnOranges() {
-      orangePositions.forEach((pos, i) => {
-        setTimeout(() => {
-          fallingOranges.push({
-            x: pos[0],
-            y: pos[1],
-            size: 14 + Math.random() * 10,
-            speed: 1.5 + Math.random() * 2,
-            rot: Math.random() * Math.PI * 2,
-            rotSpeed: (Math.random() - 0.5) * 0.04,
-            active: true
-          });
-        }, i * 300);
-      });
-    }
+    img.onload = () => {
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    function drawTree(progress) {
-      ctx.strokeStyle = 'rgba(200, 180, 140, 0.5)';
-      ctx.lineWidth = 2;
-      ctx.lineCap = 'round';
+        naranjas.forEach(n => {
+          ctx.save();
+          ctx.globalAlpha = 0.3;
+          ctx.translate(n.x, n.y);
+          ctx.rotate(n.rot);
+          ctx.drawImage(img, -n.size, -n.size, n.size * 2, n.size * 2);
+          ctx.restore();
 
-      const totalBranches = branches.length;
-      const branchesToDraw = Math.floor(progress * totalBranches);
-      const partialProgress = (progress * totalBranches) % 1;
+          n.y += n.speed;
+          n.rot += n.rotSpeed;
+          if (n.y > canvas.height + n.size * 2) {
+            n.y = -n.size * 2;
+            n.x = Math.random() * canvas.width;
+          }
+        });
 
-      for (let i = 0; i < branchesToDraw; i++) {
-        const b = branches[i];
-        ctx.beginPath();
-        ctx.moveTo(b[0], b[1]);
-        ctx.lineTo(b[2], b[3]);
-        ctx.stroke();
+        requestAnimationFrame(animate);
       }
-
-      // Rama parcial
-      if (branchesToDraw < totalBranches) {
-        const b = branches[branchesToDraw];
-        ctx.beginPath();
-        ctx.moveTo(b[0], b[1]);
-        ctx.lineTo(
-          b[0] + (b[2] - b[0]) * partialProgress,
-          b[1] + (b[3] - b[1]) * partialProgress
-        );
-        ctx.stroke();
-      }
-    }
-
-    function animate(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (!treeComplete) {
-        const progress = Math.min(elapsed / drawDuration, 1);
-        drawTree(progress);
-
-        if (progress >= 1) {
-          treeComplete = true;
-          spawnOranges();
-        }
-      } else {
-        // Árbol completo siempre visible
-        drawTree(1);
-
-        // Naranjas cayendo
-        if (img.complete) {
-          fallingOranges.forEach(n => {
-            ctx.save();
-            ctx.globalAlpha = 0.7;
-            ctx.translate(n.x, n.y);
-            ctx.rotate(n.rot);
-            ctx.drawImage(img, -n.size, -n.size, n.size * 2, n.size * 2);
-            ctx.restore();
-
-            n.y += n.speed;
-            n.rot += n.rotSpeed;
-            n.speed += 0.05; // gravedad
-
-            // Cuando sale de pantalla, vuelve a caer desde la rama
-            if (n.y > canvas.height + n.size * 2) {
-              const origin = orangePositions[fallingOranges.indexOf(n) % orangePositions.length];
-              n.x = origin[0];
-              n.y = origin[1];
-              n.speed = 1.5 + Math.random() * 2;
-              n.rot = Math.random() * Math.PI * 2;
-            }
-          });
-        }
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    requestAnimationFrame(animate);
+      animate();
+    };
 
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
