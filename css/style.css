@@ -526,6 +526,9 @@ footer {
   .project-meta {
     opacity: 1;
   }
+  .index-grid {
+    padding-top: calc(80px + var(--page-padding));
+  }
 }
 
 .sobre-video {
