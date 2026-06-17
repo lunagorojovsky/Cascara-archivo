@@ -104,6 +104,12 @@ header {
 .project-card {
   display: block;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover .project-meta {
+  opacity: 1;
 }
 
 .project-thumb {
@@ -124,10 +130,17 @@ header {
 }
 
 .project-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  opacity: 0;
+  transition: opacity 0.4s ease;
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 10px 0 0;
+  align-items: flex-end;
+  gap: 10px;
 }
 
 .project-num {
