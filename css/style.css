@@ -529,7 +529,8 @@ footer {
 }
 
 .sobre-video {
-  width: 100%;
+  width: 80%;
+  max-width: 500px;
 }
 
 .sobre-video video {
