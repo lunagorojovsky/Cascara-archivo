@@ -311,7 +311,7 @@ footer {
 /* --- Responsive --- */
 @media (max-width: 600px) {
   .index-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
   }
 
@@ -522,7 +522,7 @@ footer {
   height: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .project-meta {
     opacity: 1;
   }
