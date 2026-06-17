@@ -159,6 +159,7 @@ header {
 }
 
 .project-year {
+  display: none;
   font-size: 10px;
   color: var(--fg-dim);
 }
