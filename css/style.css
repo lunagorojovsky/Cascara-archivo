@@ -527,3 +527,12 @@ footer {
     opacity: 1;
   }
 }
+
+.sobre-video {
+  width: 100%;
+}
+
+.sobre-video video {
+  width: 100%;
+  height: auto;
+}
