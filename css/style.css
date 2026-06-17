@@ -527,7 +527,7 @@ footer {
     opacity: 1;
   }
   .index-grid {
-    padding-top: calc(80px + var(--page-padding));
+    padding-top: calc(120px + var(--page-padding));
   }
 }
 
