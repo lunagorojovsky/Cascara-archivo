@@ -522,12 +522,15 @@ footer {
   height: 100%;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .project-meta {
     opacity: 1;
   }
   .index-grid {
     padding-top: calc(120px + var(--page-padding));
+  }
+  .project-thumb {
+    aspect-ratio: 1/1;
   }
 }
 
