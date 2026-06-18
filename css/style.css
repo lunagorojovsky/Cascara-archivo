@@ -549,3 +549,8 @@ footer {
   object-fit: cover;
   object-position: top;
 }
+
+.img-block video {
+  width: 100%;
+  height: auto;
+}
